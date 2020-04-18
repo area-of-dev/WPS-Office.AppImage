@@ -1,0 +1,11 @@
+#! /bin/bash
+set -e
+cd ${HOME}
+
+case "$1" in
+  '--writer') exec ${APPDIR}/opt/application/wps $@ ;;
+  '--spreadsheets')   exec ${APPDIR}/opt/application/et $@ ;;
+  '--presentation')   exec ${APPDIR}/opt/application/wpp $@ ;;
+  '--pdf')   exec ${APPDIR}/opt/application/wpspdf $@ ;;
+  *)   exec ${APPDIR}/opt/application/wps $@ ;;
+esac
