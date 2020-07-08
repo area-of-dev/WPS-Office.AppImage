@@ -1,11 +1,12 @@
 #! /bin/bash
 set -e
-cd ${HOME}
+
+cd ${OWD}
 
 case "$1" in
-  '--writer') exec ${APPDIR}/opt/application/wps $@ ;;
-  '--spreadsheets')   exec ${APPDIR}/opt/application/et $@ ;;
-  '--presentation')   exec ${APPDIR}/opt/application/wpp $@ ;;
-  '--pdf')   exec ${APPDIR}/opt/application/wpspdf $@ ;;
+  '--writer') exec ${APPDIR}/opt/application/wps $2 ;;
+  '--spreadsheets')   exec ${APPDIR}/opt/application/et $2 ;;
+  '--presentation')   exec ${APPDIR}/opt/application/wpp $2 ;;
+  '--pdf')   exec ${APPDIR}/opt/application/wpspdf $2 ;;
   *)   exec ${APPDIR}/opt/application/wps $@ ;;
 esac
