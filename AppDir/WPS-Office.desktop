@@ -12,9 +12,9 @@ X-DBUS-ServiceName=
 X-DBUS-StartupType=
 X-KDE-SubstituteUID=false
 X-KDE-Username=
-Icon=icon
+Icon=wpsoffice
 InitialPreference=3
-StartupWMClass=wps
+StartupWMClass=wpsoffice
 
 Actions=Writer;Spreadsheets;Presentation;Pdf;
 
@@ -27,7 +27,6 @@ MimeType=application/wps-office.wps;application/wps-office.wpt;application/wps-o
 Categories=Office;WordProcessor;
 Exec=AppRun --writer %F
 StartupNotify=false
-Icon=icon
 
 [Desktop Action Spreadsheets]
 Name=WPS Spreadsheets
@@ -36,7 +35,6 @@ Comment=Use WPS Spreadsheets to analyze manage data.
 MimeType=application/wps-office.et;application/wps-office.ett;application/wps-office.ets;application/wps-office.eto;application/wps-office.xls;application/wps-office.xlt;application/vnd.ms-excel;application/msexcel;application/x-msexcel;application/wps-office.xlsx;application/wps-office.xltx;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
 Exec=AppRun --spreadsheets %F
 StartupNotify=false
-Icon=icon
 
 [Desktop Action Presentation]
 Name=WPS Presentation
@@ -45,7 +43,6 @@ Comment=Use WPS Presentation to edit and play presentations.
 MimeType=application/wps-office.dps;application/wps-office.dpt;application/wps-office.dpss;application/wps-office.dpso;application/wps-office.ppt;application/wps-office.pot;application/vnd.ms-powerpoint;application/vnd.mspowerpoint;application/mspowerpoint;application/powerpoint;application/x-mspowerpoint;application/wps-office.pptx;application/wps-office.potx;application/vnd.openxmlformats-officedocument.presentationml.presentation;application/vnd.openxmlformats-officedocument.presentationml.slideshow
 Exec=AppRun --presentation %U
 StartupNotify=false
-Icon=icon
 
 [Desktop Action Pdf]
 Name=WPS PDF
@@ -54,4 +51,3 @@ Categories=Office;WordProcessor;
 Comment=Kingsoft Pdf Reader
 MimeType=application/wps-office.pdf;application/pdf
 Exec=AppRun --pdf %F
-Icon=icon
