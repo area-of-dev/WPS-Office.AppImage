@@ -26,7 +26,7 @@ all:
 
 	rm -rf AppDir/opt
 	mkdir --parents AppDir/opt/application
-	cp -r build/opt/kingsoft/wps-office/office6/* AppDir/opt/application
+	cp -r build/opt/kingsoft/wps-office/office*/* AppDir/opt/application
 
 	chmod +x AppDir/AppRun
 
