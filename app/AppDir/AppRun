@@ -20,9 +20,9 @@ set -ex
 cd ${OWD}
 
 case "$1" in
-  '--writer') exec ${APPDIR}/opt/application/wps "$2" ;;
-  '--spreadsheets')   exec ${APPDIR}/opt/application/et "$2" ;;
-  '--presentation')   exec ${APPDIR}/opt/application/wpp "$2" ;;
-  '--pdf')   exec ${APPDIR}/opt/application/wpspdf "$2" ;;
-  *)   exec ${APPDIR}/opt/application/wps "$@" ;;
+  '--writer') exec ${APPDIR}/wpsoffice/wps "$2" ;;
+  '--spreadsheets')   exec ${APPDIR}/wpsoffice/et "$2" ;;
+  '--presentation')   exec ${APPDIR}/wpsoffice/wpp "$2" ;;
+  '--pdf')   exec ${APPDIR}/wpsoffice/wpspdf "$2" ;;
+  *)   exec ${APPDIR}/wpsoffice/wps "$@" ;;
 esac

@@ -1,0 +1,56 @@
+name: Deploy the build to the apprepo (PROD)
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: ~
+  schedule:
+    - cron: "0 0 1-7,15-21 * 3"
+env:
+  DOCKER_BUILDKIT: 1
+  AUTHENTICATION: "${{ secrets.PROD_AUTHENTICATION }}"
+  TOKEN: "${{ secrets.PROD_TOKEN }}"
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # - name: preparation
+      #   run: |
+
+      #     mkdir --parents ./dist
+      #     mkdir --parents ./app/.config/apprepo
+
+      #     echo "[user]"                    >  ./app/.config/apprepo/default.conf
+      #     echo "token = ${AUTHENTICATION}" >> ./app/.config/apprepo/default.conf
+          
+      #     echo "${{ github.event.repository.name }}"
+
+      - name: build
+        run: |
+
+          docker-compose -f docker-compose.yaml build --no-cache --progress=plain
+          docker-compose -f docker-compose.yaml run appimage make all
+
+      # - name: deploy
+      #   run: |
+
+      #     docker-compose -f docker-compose.yaml run appimage /bin/sh -c \
+      #         '/root/bin/Apprepo.AppImage upload /root/`ls /root/ | grep AppImage | head -n 1` --version-description=`date +"%d-%m-%Y"` --version-token=${TOKEN} --version-name="latest" --version-skip-check '
+
+      - name: release latest build
+        uses: andelf/nightly-release@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: latest
+          name: ${{ github.event.repository.name }} latest build'
+          body: 'This repo provides the AppImage build only. To get the application release notes please visit the home page of the app itself.'
+          prerelease: true
+          files: |
+            ./app/*.AppImage

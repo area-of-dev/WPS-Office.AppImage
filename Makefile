@@ -1,39 +1,35 @@
-# This software is a part of the A.O.D (https://apprepo.de) project
 # Copyright 2020 Alex Woroschilow (alex.woroschilow@gmail.com)
 #
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation; either version 2
-# of the License, or (at your option) any later version.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
 #
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# http://www.apache.org/licenses/LICENSE-2.0
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-SOURCE="https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/10920/wps-office_11.1.0.10920.XA_amd64.deb"
-DESTINATION="build.deb"
-OUTPUT="WPS-Office.AppImage"
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+PWD := $(shell pwd)
 
-all:
-	echo "Building: $(OUTPUT)"
-	echo "Building: $(OUTPUT)"
-	wget --output-document=$(DESTINATION)  --continue $(SOURCE)
-	dpkg -x $(DESTINATION) build
+DOCKER_COMPOSE:=docker-compose -f $(PWD)/docker-compose.yaml
 
-	rm -rf AppDir/opt
-	mkdir --parents AppDir/opt/application
-	cp -r build/opt/kingsoft/wps-office/office*/* AppDir/opt/application
+.EXPORT_ALL_VARIABLES:
+CID=$(shell basename $(PWD) | tr -cd '[:alnum:]' | tr A-Z a-z)
+UID=$(shell id -u)
+GID=$(shell id -g)
 
-	chmod +x AppDir/AppRun
+.PHONY: all
 
-	export ARCH=x86_64 && bin/appimagetool.AppImage AppDir $(OUTPUT)
 
-	chmod +x $(OUTPUT)
+all: clean
+	$(DOCKER_COMPOSE) stop
+	$(DOCKER_COMPOSE) up --build --no-start
+	$(DOCKER_COMPOSE) up -d  "appimage"
+	$(DOCKER_COMPOSE) run    "appimage" make all
+	$(DOCKER_COMPOSE) run    "appimage" chown -R $(UID):$(GID) ./
+	$(DOCKER_COMPOSE) stop
 
-	rm -f $(DESTINATION)
-	rm -rf AppDir/opt
-	rm -rf build
+clean:
+	$(DOCKER_COMPOSE) up -d  "appimage"
+	$(DOCKER_COMPOSE) run    "appimage" make clean
+	$(DOCKER_COMPOSE) rm --stop --force
