@@ -11,14 +11,11 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 FROM ubuntu:20.04
 
-ARG TOKEN
-ENV TOKEN=${TOKEN}
-
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV DEBIAN_FRONTEND=noninteractive 
 
 RUN apt-get -y update && apt-get -y install apt-utils
 RUN apt-get -y update && apt-get -y upgrade
 RUN apt-get install -y kmod make gcc wget
-RUN apt-get install -y fuse
+RUN apt-get install -y fuse apt-file
 RUN apt-get install -y file
