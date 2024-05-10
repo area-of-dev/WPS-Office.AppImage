@@ -15,7 +15,7 @@ PWD:=$(shell pwd)
 
 all: clean init
 	mkdir --parents $(PWD)/build/Boilerplate.AppDir/wpsoffice
-	$(PWD)/bin/Apprepo.AppImage --destination=$(PWD)/build appdir boilerplate \
+	$(PWD)/bin/apprepo.AppImage --destination=$(PWD)/build appdir boilerplate \
 		libicu66 libicu-dev \
 	    libselinux1  libwayland-cursor0
 
@@ -31,7 +31,7 @@ all: clean init
 	echo '  *)   $${APPDIR}/wpsoffice/wps $${@} ;;' 	                            >> $(PWD)/build/Boilerplate.AppDir/AppRun
 	echo 'esac' 																	>> $(PWD)/build/Boilerplate.AppDir/AppRun
 
-	wget --output-document=$(PWD)/build/build.deb  --continue https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/11664/wps-office_11.1.0.11664.XA_amd64.deb
+	wget --output-document=$(PWD)/build/build.deb https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/11719/wps-office_11.1.0.11719.XA_amd64.deb
 	dpkg -x $(PWD)/build/build.deb $(PWD)/build
 
 	cp --recursive --force $(PWD)/build/opt/kingsoft/wps-office/office*/* \
@@ -53,8 +53,8 @@ init:
 	mkdir --parents $(PWD)/bin
 
 	wget https://apprepo.de/appimage/download/apprepo \
-		--output-document=$(PWD)/bin/Apprepo.AppImage
-	chmod +x $(PWD)/bin/Apprepo.AppImage
+		--output-document=$(PWD)/bin/apprepo.AppImage
+	chmod +x $(PWD)/bin/apprepo.AppImage
 
 	wget https://github.com/AppImage/AppImageKit/releases/download/13/appimagetool-x86_64.AppImage \
 		--output-document=$(PWD)/bin/appimagetool.AppImage

@@ -29,6 +29,9 @@ all: clean
 	$(DOCKER_COMPOSE) run    "appimage" chown -R $(UID):$(GID) ./
 	$(DOCKER_COMPOSE) stop
 
+release: all
+	which gh > /dev/null 2>&1 && gh release upload latest --clobber  ./app/*.AppImage
+
 clean:
 	$(DOCKER_COMPOSE) up -d  "appimage"
 	$(DOCKER_COMPOSE) run    "appimage" make clean
