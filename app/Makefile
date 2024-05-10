@@ -52,7 +52,7 @@ all: clean init
 init:
 	mkdir --parents $(PWD)/bin
 
-	wget https://apprepo.de/appimage/download/apprepo \
+	wget https://github.com/area-of-dev/apprepo.AppImage/releases/download/latest/apprepo.AppImage \
 		--output-document=$(PWD)/bin/apprepo.AppImage
 	chmod +x $(PWD)/bin/apprepo.AppImage
 
